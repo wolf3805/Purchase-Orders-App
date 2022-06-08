@@ -81,9 +81,9 @@ function RegisterProductModal({
       centered
     >
       <ModalHeader tag="div">
-        <h5>
+        <h6>
           Agregar producto
-        </h5>
+        </h6>
       </ModalHeader>
       <ModalBody>
         <form onSubmit={handleSubmit(submit)}>
@@ -141,16 +141,16 @@ function RegisterProductModal({
             />
           </div>
           <Button
+            className="button"
             type="button"
-            color="secondary"
             onClick={closeModal}
             disabled={loading}
           >
             Cancelar
           </Button>
           <Button
+            className="button accept-button"
             type="submit"
-            color="primary"
             disabled={loading}
           >
             {loading && <i className="fas fa-spinner fa-spin" />}

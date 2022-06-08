@@ -1,6 +1,8 @@
 import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 
+import './Input.scss';
+
 const Input = forwardRef(({
   id,
   name,
@@ -12,7 +14,7 @@ const Input = forwardRef(({
   onBlur,
   step = null,
 }, ref) => (
-  <>
+  <div className="input">
     {label && (
       <label
         htmlFor={id}
@@ -28,7 +30,7 @@ const Input = forwardRef(({
       onChange={onChange}
       onBlur={onBlur}
       type={type}
-      className={`input form-control${(error ? ' is-invalid border border-danger' : '')}`}
+      className={`form-control${(error ? ' is-invalid border border-danger' : '')}`}
       placeholder={placeholder}
       step={step}
     />
@@ -37,7 +39,7 @@ const Input = forwardRef(({
         {error.message}
       </div>
     )}
-  </>
+  </div>
 ));
 
 export default Input;

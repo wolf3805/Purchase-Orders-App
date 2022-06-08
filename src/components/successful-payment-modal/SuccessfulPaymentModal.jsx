@@ -31,14 +31,14 @@ function SuccessfulPaymentModal({ showModal, toggleShowModal }) {
       </ModalBody>
       <ModalFooter>
         <button
-          className="btn btn-secondary"
+          className="button"
           onClick={toggleShowModal}
           type="button"
         >
           Ver detalles
         </button>
         <button
-          className="btn btn-danger"
+          className="button accept-button"
           onClick={toggleShowModal}
           type="button"
         >

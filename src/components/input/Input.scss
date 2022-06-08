@@ -1,0 +1,16 @@
+@import '../../scss/variables.scss';
+
+.input {
+    .form-label {
+        font-weight: 700;
+        font-size: 1rem;
+        color: $black;
+        padding-left: 5px;
+    }
+    
+    input {
+        border: 1px solid rgba($purple, .4);
+        padding: 20px 25px;
+        color: #9A9AB0;
+    }
+}
