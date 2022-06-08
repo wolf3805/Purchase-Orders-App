@@ -1,0 +1,55 @@
+@import '../../../../scss/variables';
+
+.header {
+    align-items: center;
+    background-color: #FFFFFF;
+    border-bottom: 1px solid #E1E1E1;
+    display: flex;
+    flex-wrap: wrap;
+    height: 90px;
+    justify-content: space-between;
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+
+    .brand {
+        padding: 10px 40px;
+        width: 300px;
+        
+        a {
+            text-decoration: none;
+            color: $purple;
+            font-weight: 900;
+            font-size: 1.4rem;
+        }
+    }
+
+    .menu {
+        align-items: center;
+        display: flex;
+        padding: 10px 40px;
+
+        .menu-item {
+            color: #878484;
+            margin: 0 3px;
+        }
+    }
+
+    .menu-dropdown-button {
+        align-items: center;
+        background-color: transparent;
+        border: none;
+        color: #878484;
+        display: flex;
+
+        &::after {
+            content: '\f0d7';
+            color: #878484;
+            font-family: 'Font Awesome 6 free';
+            font-size: .9rem;
+            font-weight: 900;
+            margin-left: 8px;
+            opacity: .8;
+        }
+    }
+}

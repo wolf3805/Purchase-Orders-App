@@ -1,5 +1,15 @@
 .dashboard-layout {
+    width: 100%;
+
     .content {
+        background: #F8FAFF;
+        box-sizing: border-box;
+        float: right;
+        margin-top: 90px;
+        min-height: calc(100vh - 90px);
         padding: 50px;
+        position: relative;
+        transition: 500ms all;
+        width: calc(100% - 300px);
     }
 }

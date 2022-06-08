@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 
 import PageLoader from '../../components/page-loader/PageLoader';
+import Header from './components/header/Header';
+import LeftSidebar from './components/left-sidebar/LeftSidebar';
 import './DashboardLayout.scss';
 
 function Dashboard({ routes }) {
@@ -24,6 +26,8 @@ function Dashboard({ routes }) {
     ? <PageLoader />
     : (
       <div className="dashboard-layout">
+        <Header />
+        <LeftSidebar />
         <div className="content">
           <Routes>
             {routes.map((route) => (
