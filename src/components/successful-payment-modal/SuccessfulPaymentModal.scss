@@ -1,0 +1,36 @@
+.successful-payment-modal {
+    .modal-content {
+        border: none;
+
+        .modal-header {
+            justify-content: center;
+            border-bottom: none;
+            padding-top: 1.5rem;
+
+            .modal-title {
+                text-align: center;
+
+                .icon {
+                    color: #ff4800;
+                    font-size: 4rem;
+                    margin-bottom: 15px;
+                }
+
+                h5 {
+                    font-size: 1.6rem;
+                }
+            }
+        }
+
+        .modal-body {
+            text-align: center;
+            padding-top: 0;
+        }
+
+        .modal-footer {
+            border-top: none;
+            justify-content: center;
+            padding-bottom: 1.5rem;
+        }
+    }
+}

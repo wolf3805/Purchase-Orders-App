@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-import { ACCESS_TOKEN } from '../consts/api';
+import { ACCESS_TOKEN, URL } from '../consts/api';
 
-axios.defaults.baseURL = 'https://eshop-deve.herokuapp.com';
+axios.defaults.baseURL = URL;
 
 axios.interceptors.request.use((config) => {
   const configData = { ...config };

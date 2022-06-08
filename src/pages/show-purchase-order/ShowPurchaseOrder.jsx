@@ -8,14 +8,38 @@ import {
 } from 'reactstrap';
 
 import CardLoader from '../../components/card-loader/CardLoader';
+import RegisterProductModal from '../../components/register-product-modal/RegisterProductModal';
+import SuccessfulPaymentModal from '../../components/successful-payment-modal/SuccessfulPaymentModal';
 import './ShowPurchaseOrder.scss';
 
 function ShowPurchaseOrder() {
-  const { state } = useLocation();
+  const { state: { order } } = useLocation();
 
-  const { order } = state;
+  const [orderState, setOrderState] = useState(order);
 
   const [loading, setLoading] = useState(true);
+
+  const [showModal, setShowModal] = useState(false);
+
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
+
+  const toggleShowModal = () => setShowModal(!showModal);
+
+  const toggleShowPaymentModal = () => setShowPaymentModal(!showPaymentModal);
+
+  const openProductModal = () => setShowModal(true);
+
+  const openPaymentModal = () => setShowPaymentModal(true);
+
+  const addProduct = (formData) => {
+    const formattedData = { ...formData };
+    formattedData.id = Math.random().toString().slice(2, 11);
+
+    const orderData = { ...orderState };
+    orderData.items = [...orderData.items, formattedData];
+
+    setOrderState(orderData);
+  };
 
   useEffect(() => {
     setTimeout(() => {
@@ -25,78 +49,68 @@ function ShowPurchaseOrder() {
 
   return (
     <div className="show-purchase-orders">
-      <h1>
-        Orden de compra No.
-        <span>
-          {order.number}
-        </span>
-      </h1>
       <div className="container px-0">
+        <h1>
+          Detalles de orden
+        </h1>
         <div className="row">
           <div className="col-md-9">
             <Card>
               <CardBody>
+                <div className="d-flex justify-content-between">
+                  <h6>
+                    Orden de compra No.
+                    <span>
+                      {orderState.number}
+                    </span>
+                  </h6>
+                  <Button color="primary" onClick={openProductModal}>
+                    Agregar producto
+                  </Button>
+                </div>
                 {loading && <CardLoader />}
                 {!loading && (
-                  <>
-                    <label htmlFor="search">
-                      <i className="fa-solid fa-magnifying-glass" />
-                      <input id="search" type="text" placeholder="Buscar por Id de producto" />
-                    </label>
-                    <Table borderless>
-                      <thead>
-                        <tr>
-                          <th>
-                            Id
+                  <Table borderless>
+                    <thead>
+                      <tr>
+                        <th>Id</th>
+                        <th>SKU</th>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Precio</th>
+                        <th>Acciones</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {orderState.items.length > 0 && orderState.items.map((item) => (
+                        <tr key={item.id}>
+                          <th scope="row">
+                            <a href="/">
+                              {item.id}
+                            </a>
                           </th>
-                          <th>
-                            SKU
-                          </th>
-                          <th>
-                            Producto
-                          </th>
-                          <th>
-                            Cantidad
-                          </th>
-                          <th>
-                            Precio
-                          </th>
-                          <th>
-                            Acciones
-                          </th>
+                          <td>
+                            {item.sku}
+                          </td>
+                          <td>
+                            {item.name}
+                          </td>
+                          <td>
+                            {item.quantity}
+                          </td>
+                          <td>
+                            {item.price}
+                          </td>
+                          <td>
+                            <button type="button">
+                              <i className="fa-solid fa-trash-can" />
+                              Eliminar
+                            </button>
+                          </td>
                         </tr>
-                      </thead>
-                      <tbody>
-                        {order.items.length > 0 && order.items.map((item) => (
-                          <tr key={item.id}>
-                            <th scope="row">
-                              <a href="/">
-                                {item.id}
-                              </a>
-                            </th>
-                            <td>
-                              {item.sku}
-                            </td>
-                            <td>
-                              {item.name}
-                            </td>
-                            <td>
-                              {item.quantity}
-                            </td>
-                            <td>
-                              {item.price}
-                            </td>
-                            <td>
-                              <button type="button">
-                                <i className="fa-solid fa-trash-can" />
-                                Eliminar
-                              </button>
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </Table>
-                  </>
+                      ))}
+                    </tbody>
+                  </Table>
                 )}
               </CardBody>
             </Card>
@@ -111,7 +125,7 @@ function ShowPurchaseOrder() {
                         Subtotal
                       </h6>
                       <p>
-                        {+order.totals.subtotal + +order.totals.discount}
+                        {+orderState.totals.subtotal + +orderState.totals.discount}
                       </p>
                     </div>
                     <div className="prices-item">
@@ -119,7 +133,7 @@ function ShowPurchaseOrder() {
                         Impuestos
                       </h6>
                       <p>
-                        {order.totals.tax}
+                        {orderState.totals.tax}
                       </p>
                     </div>
                     <div className="prices-item">
@@ -127,7 +141,7 @@ function ShowPurchaseOrder() {
                         Descuento
                       </h6>
                       <p>
-                        {order.totals.discount}
+                        {orderState.totals.discount}
                       </p>
                     </div>
                   </div>
@@ -136,10 +150,13 @@ function ShowPurchaseOrder() {
                       Total
                     </h6>
                     <p>
-                      {order.totals.total}
+                      {orderState.totals.total}
                     </p>
                   </div>
-                  <Button color="primary">
+                  <Button
+                    color="primary"
+                    onClick={openPaymentModal}
+                  >
                     Pagar
                   </Button>
                 </div>
@@ -148,6 +165,15 @@ function ShowPurchaseOrder() {
           </div>
         </div>
       </div>
+      <RegisterProductModal
+        showModal={showModal}
+        toggleShowModal={toggleShowModal}
+        addProduct={addProduct}
+      />
+      <SuccessfulPaymentModal
+        showModal={showPaymentModal}
+        toggleShowModal={toggleShowPaymentModal}
+      />
     </div>
   );
 }
